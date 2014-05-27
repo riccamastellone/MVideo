@@ -51,26 +51,32 @@ function updateCount() {
     $('#t-count').html(calculateTests());
 }
 function calculateTests() {
-    var count = 0;
     
     if(buttonStatus('audio') === 'enabled') {
-        count = count + Math.floor(100/$('#audio-step').val());
+        audio = Math.floor(100/$('#audio-step').val());
+    } else {
+        audio = 1;
     }
     
     if(buttonStatus('wifi') === 'enabled') {
-        count = count + Math.floor(100/$('#wifi-step').val());
+        wifi = Math.floor(100/$('#wifi-step').val());
+    } else {
+        wifi = 1;
+    }
+    
+    
+    if(buttonStatus('brightness') === 'enabled') {
+        brightness = Math.floor(100/$('#brightness-step').val());
+    } else {
+        brightness = 1;
     }
     
     if(buttonStatus('3g') === 'enabled') {
-        count = count + 1;
+        threeg = 2;
+    } else {
+        threeg = 1;
     }
-    
-    if(buttonStatus('brightness') === 'enabled') {
-        count = count + Math.floor(100/$('#brightness-step').val());
-    }
-    if(count === 0) {
-        count = 1; // Facciamo riprodurre il video senza toccare niente
-    }
+    var count = audio*wifi*brightness*threeg;
     return count;
     
 }
