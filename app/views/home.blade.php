@@ -25,10 +25,10 @@
                 <button type="button" id="brightness" class="btn btn-default btn-lg" onclick="toggleButton('brightness')">Screen Brightness <span class="glyphicon glyphicon-remove"></span></button>
                 <button type="button" id="3g" class="btn btn-default btn-lg" onclick="toggleButton('3g')">3G Connectivity <span class="glyphicon glyphicon-remove"></span></button>
                 <button type="button" id="wifi" class="btn btn-default btn-lg" onclick="toggleButton('wifi')">Wifi Strenght <span class="glyphicon glyphicon-remove"></span></button>
-                <button type="button" id="audio" class="btn btn-default btn-lg" onclick="toggleButton('audio')">Audio Volume <span class="glyphicon glyphicon-remove"></span></button> 
+                <button type="button" id="audio" class="btn btn-default btn-lg" onclick="toggleButton('audio')">Audio <span class="glyphicon glyphicon-remove"></span></button> 
                 <button type="button" data-toggle="modal" data-target="#av-bitrates" class="btn btn-default btn-lg">AV Bitrate <span class="glyphicon glyphicon-remove"></span></button> 
             </p>
-            <p>With these settings <strong>8</strong> new tests will be queued</p>
+            <p>With these settings <strong id="t-count">1</strong> new tests will be queued</p>
             <p><button type="button" class="btn btn-success btn-lg">Create it!</button></p>
         </div>
     </div>
