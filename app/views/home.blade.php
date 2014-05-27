@@ -45,7 +45,7 @@
             <div class="modal-body">
                 <p>Do you want to change the default step percentage?</p>
                 <div class="input-group">
-                    <input type="number" class="form-control" id="brightness-step" value="10">
+                    <input type="number" class="form-control" id="brightness-step" value="25">
                     <span class="input-group-addon">%</span>
                 </div>
             </div>
@@ -64,7 +64,7 @@
             <div class="modal-body">
                 <p>Do you want to change the default step percentage?</p>
                 <div class="input-group">
-                    <input type="number" class="form-control" id="wifi-step" value="10">
+                    <input type="number" class="form-control" id="wifi-step" value="25">
                     <span class="input-group-addon">%</span>
                 </div>
             </div>
@@ -83,7 +83,7 @@
             <div class="modal-body">
                 <p>Do you want to change the default step percentage?</p>
                 <div class="input-group">
-                    <input type="number" class="form-control" id="audio-step" value="10">
+                    <input type="number" class="form-control" id="audio-step" value="25">
                     <span class="input-group-addon">%</span>
                 </div>
             </div>
