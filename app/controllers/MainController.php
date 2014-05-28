@@ -2,6 +2,9 @@
 
 class MainController extends BaseController {
     
+    /**
+     * Endpoint per il caricamento dei file con Plupload
+     */
     public function upload() {
         $targetDir = Config::get('mvideo.upload-folder');
             
@@ -58,7 +61,7 @@ class MainController extends BaseController {
         }
             
         Session::put('video-uploaded', $filePath);
-        die('{"jsonrpc" : "2.0", "result" : null, "id" : "id"}');
+        die('{"jsonrpc" : "2.0", "result" : "'.$filePath.'", "id" : "id"}');
     }
 
 }

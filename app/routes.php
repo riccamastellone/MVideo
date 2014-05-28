@@ -18,3 +18,16 @@ Route::get('/', function()
 
 // Plupload
 Route::any('/upload', 'MainController@upload');
+
+
+// === AJAX === //
+Route::get('/ajax/queue-status', function() {
+    return array(
+        'queue' => TestElement::queue()->count(), 
+        'completed' => TestElement::completed()->count(),
+        'total' => TestElement::count());
+});
+Route::post('/ajax/delete-queue', function() {
+    TestElement::queue()->delete();
+});
+Route::post('/ajax/create-test', 'TestController@create');

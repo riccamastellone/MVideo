@@ -16,15 +16,18 @@ class CreateTestsTable extends Migration {
             {
                 $table->increments('id');
                 $table->string('media');
-                $table->integer('brightness')->nullable();
+                $table->integer('brightness_steps')->nullable();
                 $table->string('network')->default('wifi');
-                $table->integer('signal_strenght')->default(100);
-                $table->integer('volume')->default(0);
-                $table->timestamp('started')->nullable();
-                $table->timestamp('completed')->nullable();
+                $table->integer('signal_strenght_steps')->nullable();
+                $table->integer('volume_steps')->nullable();
+                $table->integer('exploded')->default(0);
                 $table->timestamps();
                 
             });
+            
+            
+            
+            
 	}
 
 	/**

@@ -33,6 +33,8 @@ $(function() {
     uploader.bind('FileUploaded', function(up, file, info) {
         $('#options').show();
         scrollTo('options');
+        risultato = JSON.parse(info.response);
+        $('input[name=media]').val(risultato.result);
     });
-    
+ 
 });

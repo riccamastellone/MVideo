@@ -8,7 +8,7 @@
     <div class="current-status">
         <div id="wifi-signal"><span class="glyphicon glyphicon-signal"></span> 70%</div>
         <p>At the moment the phone is running <strong>this</strong> test and is <strong>not</strong> charging.</p>
-        <p>It successfully completed <strong>7</strong> out of <strong>12</strong> tests. You want to <a href="javascript:cancelQueue()">cancel</a> the queue?</p>
+        <p>It successfully completed <strong id="completed-tests">7</strong> out of <strong id="total-tests">12</strong> tests. You want to <a href="javascript:cancelQueue()">cancel</a> the queue?</p>
         <p>Otherwise you could <a href="javascript:newTest()">create some more</a></p>
     </div>
     <div id="new-test" class="margin-top">
@@ -26,10 +26,11 @@
                 <button type="button" id="3g" class="btn btn-default btn-lg" onclick="toggleButton('3g')">3G Connectivity <span class="glyphicon glyphicon-remove"></span></button>
                 <button type="button" id="wifi" class="btn btn-default btn-lg" onclick="toggleButton('wifi')">Wifi Strenght <span class="glyphicon glyphicon-remove"></span></button>
                 <button type="button" id="audio" class="btn btn-default btn-lg" onclick="toggleButton('audio')">Audio <span class="glyphicon glyphicon-remove"></span></button> 
-                <button type="button" data-toggle="modal" data-target="#av-bitrates" class="btn btn-default btn-lg">AV Bitrate <span class="glyphicon glyphicon-remove"></span></button> 
+                <button type="button" data-toggle="modal" data-target="#av-bitrates" class="btn btn-default btn-lg">AV Bitrate <span class="glyphicon glyphicon-remove"></span></button>
+                <input type="hidden" name="media">
             </p>
             <p>With these settings <strong id="t-count">1</strong> new tests will be queued</p>
-            <p><button type="button" class="btn btn-success btn-lg">Create it!</button></p>
+            <p><button id="create-button" type="button" class="btn btn-success btn-lg" onclick="createTest()" data-loading-text="Saving..."></i>Create it!</button></p>
         </div>
     </div>
 </div>
