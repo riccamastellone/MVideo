@@ -24,9 +24,9 @@
             <p class='options'>
                 <button type="button" id="brightness" class="btn btn-default btn-lg" onclick="toggleButton('brightness')">Screen Brightness <span class="glyphicon glyphicon-remove"></span></button>
                 <button type="button" id="3g" class="btn btn-default btn-lg" onclick="toggleButton('3g')">3G Connectivity <span class="glyphicon glyphicon-remove"></span></button>
-                <button type="button" id="wifi" class="btn btn-default btn-lg" onclick="toggleButton('wifi')">Wifi Strenght <span class="glyphicon glyphicon-remove"></span></button>
+                <button type="button" id="wifi" class="btn btn-default btn-lg" <?= Config::get('mvideo.enable-wifi-levels') ? "onclick=\"toggleButton('wifi')\"" : 'disabled="disabled"'?>>Wifi Strenght <span class="glyphicon glyphicon-remove"></span></button>
                 <button type="button" id="audio" class="btn btn-default btn-lg" onclick="toggleButton('audio')">Audio <span class="glyphicon glyphicon-remove"></span></button> 
-                <button type="button" data-toggle="modal" data-target="#av-bitrates" class="btn btn-default btn-lg">AV Bitrate <span class="glyphicon glyphicon-remove"></span></button>
+                <button type="button" disabled="disabled" class="btn btn-default btn-lg">AV Bitrate <span class="glyphicon glyphicon-remove"></span></button>
                 <input type="hidden" name="media">
             </p>
             <p>With these settings <strong id="t-count">1</strong> new tests will be queued</p>
@@ -91,23 +91,7 @@
         </div>
     </div>
 </div>
-    
-    
-<!-- AV ENCODINGS -->
-<div class="modal fade" id='av-bitrates'>
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Audio / Video Bitrates</h4>
-            </div>
-            <div class="modal-body">
-                <p>This feature requires extarnal media transcoder (eg AWS).</p>
-            </div>
-        </div>
-    </div>
-</div>
-    
+ 
 <script src="/packages/plupload/plupload.full.min.js"></script>
 <script src="/js/upload.js"></script>
 <script src="/js/home.js"></script>
