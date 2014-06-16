@@ -16,6 +16,11 @@ Route::get('/', function()
 	return View::make('home');
 });
 
+Route::get('/get-test', 'TestController@get');
+
+Route::post('/start-test/{id}', 'TestController@start');
+Route::post('/completed-test', 'TestController@complete');
+
 // Plupload
 Route::any('/upload', 'MainController@upload');
 
