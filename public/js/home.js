@@ -2,6 +2,11 @@
 
 
 $(function() {
+  $('#popover').hover(function() {
+      $(this).popover('show');
+  }, function() {
+      $(this).popover('hide');
+  }).css('cursor','pointer');
   $('.modal').on('hide.bs.modal', function (e) {
     updateCount();
   });
