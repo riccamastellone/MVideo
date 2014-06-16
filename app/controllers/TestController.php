@@ -29,11 +29,16 @@ class TestController extends BaseController {
     }
     
     /**
-     * Ritorniamo un test in json
+     * Ritorniamo il test corrente se presente, uno nuovo altrimenti
      * @return TestElement
      */
     public function get() {
-        return TestElement::queue()->orderBy('created_at','desc')->first();
+        if(!$this->currentTest()) {
+            return TestElement::queue()->orderBy('created_at','desc')->first();
+        } else {
+            return $this->currentTest();
+        }
+        
     }
     
     /**
@@ -43,6 +48,11 @@ class TestController extends BaseController {
      */
     public function start($id = null) {
         if(!$id) return;
+        
+        // Non vogliamo avere più di un test avviato
+        if($this->currentTest() && $this->currentTest()->id != $id) {
+            return array('status'=> 'error', 'message' => 'You already started an other test!');
+        }
 
         $test = TestElement::find($id);
         $test->started = date("Y-m-d H:i:s");
@@ -55,6 +65,19 @@ class TestController extends BaseController {
      */
     public function complete() {
         
+    }
+    
+    /**
+     * Ritorniamo il current test se presente, false altrimenti
+     * @return boolean|TestElement
+     */
+    private function currentTest() {
+        $query = TestElement::where('started', '!=', NULL)->where('completed', NULL)->orderBy('created_at','desc');
+        if($query->count()) {
+            return $query->first();
+        } else {
+            return false;
+        }
     }
     
 }
