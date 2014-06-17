@@ -72,7 +72,7 @@ class TestController extends BaseController {
      * @return boolean|TestElement
      */
     private function currentTest() {
-        $query = TestElement::where('started', '!=', NULL)->where('completed', NULL)->orderBy('created_at','desc');
+        $query = TestElement::whereNotNull('started')->where('completed', NULL)->orderBy('created_at','desc');
         if($query->count()) {
             return $query->first();
         } else {
