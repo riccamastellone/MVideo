@@ -18,14 +18,12 @@ Route::get('/', function()
 
 Route::get('/test', 'TestController@get');
 
-Route::post('/start-test/{id}', 'TestController@start');
+Route::post('/start-test/{id}', 'TestController@start'); // DA CAMBIARE
 Route::post('/completed-test', 'TestController@complete');
 
 // Plupload
 Route::any('/upload', 'MainController@upload');
 
-
-// === AJAX === //
 Route::get('/queue-status', function() {
     return array(
         'queue' => TestElement::queue()->count(), 
@@ -35,4 +33,5 @@ Route::get('/queue-status', function() {
 Route::post('/delete-queue', function() {
     TestElement::queue()->delete();
 });
+
 Route::post('/create-test', 'TestController@create');
