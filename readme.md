@@ -22,19 +22,26 @@ Use this call to get a new (or current, read the note) test.
 Example response:
 ```json
 {
-"id":"1",
-"test_id":"12",
-"media":"uploads\/o_18pk48a6dba5s3vb8u1k8sksh9.jpg",
-"brightness":"80",
-"network":"wifi",
-"signal_strenght":"100",
-"volume":"0",
-"started":"2014-06-16 08:38:09",
-"completed":null,
-"created_at":"2014-06-04 19:03:59",
-"updated_at":"2014-06-16 08:38:09"
+    "id":"1",
+    "test_id":"12",
+    "media":"uploads\/o_18pk48a6dba5s3vb8u1k8sksh9.jpg",
+    "brightness":"80",
+    "network":"wifi",
+    "signal_strenght":"100",
+    "volume":"0",
+    "started":"2014-06-16 08:38:09",
+    "completed":null,
+    "created_at":"2014-06-04 19:03:59",
+    "updated_at":"2014-06-16 08:38:09"
 }
 ```
+- *id* -  ID of the single test
+- *test_id* - ID of the test group (You may ignore this)
+- *media* - Relative media path
+- *brightness* - Brightness [0-100]
+- *network* - Network to be used [wifi,3g]
+- *signal_strenght* - Strenght of the wifi signal (You may ignore this as is a parameter handled by the controller)
+- *volume* - Volume level [0-100]
 
 > **NOTE**: As you may notice, the *started* field is not *null*
 This is because this test is marked as started but **not** completed: only one test at the time can be requested.
@@ -50,9 +57,9 @@ Retrieves the status of the queue
 Example response:
 ```json
 {
-"queue":0,
-"completed":0,
-"total":1
+    "queue":0,
+    "completed":0,
+    "total":1
 }
 ```
 
