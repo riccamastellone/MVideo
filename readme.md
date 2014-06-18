@@ -1,4 +1,4 @@
-MVideo	{#intro}
+MVideo
 =====================
 
 This is the web app, written in PHP, that will serve as the *controller* of the MVideo battery-consumption-testing project.
@@ -21,7 +21,19 @@ Use this call to get a new (or current, read the note) test.
 
 Example response:
 ```json
-{"id":"1","test_id":"12","media":"uploads\/o_18pk48a6dba5s3vb8u1k8sksh9.jpg","brightness":"80","network":"wifi","signal_strenght":"100","volume":"0","started":"2014-06-16 08:38:09","completed":null,"created_at":"2014-06-04 19:03:59","updated_at":"2014-06-16 08:38:09"}
+{
+"id":"1",
+"test_id":"12",
+"media":"uploads\/o_18pk48a6dba5s3vb8u1k8sksh9.jpg",
+"brightness":"80",
+"network":"wifi",
+"signal_strenght":"100",
+"volume":"0",
+"started":"2014-06-16 08:38:09",
+"completed":null,
+"created_at":"2014-06-04 19:03:59",
+"updated_at":"2014-06-16 08:38:09"
+}
 ```
 
 > **NOTE**: As you may notice, the *started* field is not *null*
@@ -37,7 +49,11 @@ Retrieves the status of the queue
 
 Example response:
 ```json
-{"queue":0,"completed":0,"total":1}
+{
+"queue":0,
+"completed":0,
+"total":1
+}
 ```
 
 #### <i class="icon-pencil"></i> Mark a started test
