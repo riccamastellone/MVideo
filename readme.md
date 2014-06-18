@@ -1,21 +1,50 @@
-## MVideo Web Application
+MVideo	{#intro}
+=====================
 
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/version.png)](https://packagist.org/packages/laravel/framework) [![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.png)](https://packagist.org/packages/laravel/framework) [![Build Status](https://travis-ci.org/laravel/framework.png)](https://travis-ci.org/laravel/framework) [![License](https://poser.pugx.org/laravel/framework/license.png)](https://packagist.org/packages/laravel/framework)
+This is the web app, written in PHP, that will serve as the *controller* of the MVideo battery-consumption-testing project.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, and caching.
+----------
 
-Laravel aims to make the development process a pleasing one for the developer without sacrificing application functionality. Happy developers make the best code. To this end, we've attempted to combine the very best of what we have seen in other web frameworks, including frameworks implemented in other languages, such as Ruby on Rails, ASP.NET MVC, and Sinatra.
 
-Laravel is accessible, yet powerful, providing powerful tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+API Calls
+---------
+The main idea is to let the device communicate to the controller what he is doing, instead of the controller pushing to the device.
 
-## Official Documentation
+> 
 
-Documentation for the entire framework can be found on the [Laravel website](http://laravel.com/docs).
 
-### Contributing To Laravel
+#### <i class="icon-file"></i> Get a test
+``` 
+GET /test
+```
+Use this call to get a new (or current, read the note) test.
 
-**All issues and pull requests should be filed on the [laravel/framework](http://github.com/laravel/framework) repository.**
+Example response:
+```json
+{"id":"1","test_id":"12","media":"uploads\/o_18pk48a6dba5s3vb8u1k8sksh9.jpg","brightness":"80","network":"wifi","signal_strenght":"100","volume":"0","started":"2014-06-16 08:38:09","completed":null,"created_at":"2014-06-04 19:03:59","updated_at":"2014-06-16 08:38:09"}
+```
 
-### License
+> **NOTE**: As you may notice, the *started* field is not *null*
+This is because this test is marked as started but **not** completed: only one test at the time can be requested.
+Scroll down for futher information on how the mark a test as started.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+
+#### <i class="icon-search"></i> Queue status
+``` 
+GET /queue-status
+```
+Retrieves the status of the queue
+
+Example response:
+```json
+{"queue":0,"completed":0,"total":1}
+```
+
+#### <i class="icon-pencil"></i> Mark a started test
+
+When the device is ready to start a test, it should mark it as *started* using this call
+``` 
+POST /start-test/{test-id}
+```
+
+----------
