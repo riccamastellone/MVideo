@@ -16,7 +16,7 @@ Route::get('/', function()
 	return View::make('home');
 });
 
-Route::get('/get-test', 'TestController@get');
+Route::get('/test', 'TestController@get');
 
 Route::post('/start-test/{id}', 'TestController@start');
 Route::post('/completed-test', 'TestController@complete');
@@ -26,13 +26,13 @@ Route::any('/upload', 'MainController@upload');
 
 
 // === AJAX === //
-Route::get('/ajax/queue-status', function() {
+Route::get('/queue-status', function() {
     return array(
         'queue' => TestElement::queue()->count(), 
         'completed' => TestElement::completed()->count(),
         'total' => TestElement::count());
 });
-Route::post('/ajax/delete-queue', function() {
+Route::post('/delete-queue', function() {
     TestElement::queue()->delete();
 });
-Route::post('/ajax/create-test', 'TestController@create');
+Route::post('/create-test', 'TestController@create');

@@ -15,7 +15,7 @@ $(function() {
 });
 function updateStatus() {
   loading();
-  $.get( "/ajax/queue-status", function(data) {
+  $.get( "/queue-status", function(data) {
         $("#completed-tests").html(data.completed);
         $("#total-tests").html(data.total);
         stopLoading();
@@ -58,7 +58,7 @@ function buttonStatus(id) {
 }
 
 function cancelQueue() {
-    $.post( "/ajax/delete-queue", function() {
+    $.post( "/delete-queue", function() {
         updateStatus();
       });
 }
@@ -124,7 +124,7 @@ function createTest() {
     
     data['media'] = $('input[name=media]').val();
     
-    $.post( "/ajax/create-test", data, function( data ) {
+    $.post( "/create-test", data, function( data ) {
 
         if(data.result != 'success') {
             alert(data.message);
