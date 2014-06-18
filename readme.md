@@ -4,10 +4,13 @@ MVideo
 This is the web app, written in PHP, that will serve as the *controller* of the MVideo battery-consumption-testing project.
 It is based on Laravel, which uses Composer: to install just run a `composer update` and everything should be fine.
 
+
+###Screenshots
+![Screenshot1](/docs/screenshots/screenshot-1.png?raw=true)
+![Screenshot2](/docs/screenshots/screenshot-2.png?raw=true)
+
+
 ----------
-
-
-
 API Calls
 ---------
 The main idea is to let the device communicate to the controller what he is doing, instead of the controller pushing to the device.
