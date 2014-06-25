@@ -93,6 +93,8 @@ Turns the USB charging power off
 
 [TODO]
 -------
+
+La risposta del json di /test deve includere `{"status":"success","message":""}`
 ``` 
 POST /completed-test
 Body: {}
