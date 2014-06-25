@@ -38,7 +38,12 @@ class TestController extends BaseController {
      */
     public function get() {
         if(!$this->currentTest()) {
-	    $test = TestElement::queue()->orderBy('created_at','desc')->first();
+	    $test = TestElement::queue()->orderBy('created_at','desc');
+	    if(!$test->count()) {
+		return array('status'=> 'error', 'message' => 'No test available');
+	    } else {
+		$test = $test->first();
+	    }
 	    self::setWifi($test->signal_strenght);
             return $test;
         } else {

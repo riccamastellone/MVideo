@@ -47,9 +47,14 @@ Example response:
 - *volume* - Volume level [0-100]
 
 > **NOTE**: As you may notice, the *started* field is not *null*
-This is because this test is marked as started but **not** completed: only one test at the time can be requested.
-Scroll down for futher information on how the mark a test as started.
+> This is because this test is marked as started but **not** completed: only one test > at the time can be requested.
+> Scroll down for futher information on how the mark a test as started.
 
+
+> **NOTE2**: The following error message will be shown if no tests are available
+>```
+> {"status":"error","message":"No test available"}
+> ```
 
 #### <i class="icon-search"></i> Queue status
 ``` 
