@@ -73,6 +73,19 @@ When the device is ready to start a test, it should mark it as *started* using t
 POST /start-test
 Body: { "test-id" : 123 }
 ```
+
+#### <i class="icon-off"></i> Handling power
+``` 
+GET /power/on
+```
+Turns the USB charging power on
+
+``` 
+GET /power/off
+```
+Turns the USB charging power off
+
+
 [TODO]
 -------
 ``` 
