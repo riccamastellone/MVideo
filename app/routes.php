@@ -35,3 +35,21 @@ Route::post('/delete-queue', function() {
 });
 
 Route::post('/create-test', 'TestController@create');
+
+Route::get('/power/off', function() {
+    
+    $ssh = BaseController::connectSSH();
+    // Spegnamo entrambe le porte USB
+    $ssh->exec('echo 0 > /sys/class/gpio/gpio22/value');
+    $ssh->exec('echo 0 > /sys/class/gpio/gpio22/value');
+});
+
+Route::get('/power/on', function() {
+    
+    $ssh = BaseController::connectSSH();
+    // Accendiamo entrambe le porte USB
+    $ssh->exec('echo 1 > /sys/class/gpio/gpio22/value');
+    $ssh->exec('echo 1 > /sys/class/gpio/gpio22/value');
+    
+});
+
