@@ -29,12 +29,18 @@ class TestController extends BaseController {
     }
     
     /**
-     * Ritorniamo il test corrente se presente, uno nuovo altrimenti
+     * Ritorniamo il test corrente se presente, uno nuovo altrimenti.
+     * Quando viene preso un nuovo test, viene anche settata la potenza del wifi,
+     * causando un discreto delay nella risposta in quando deve stabilire una connessione
+     * SSH al router. Sarebbe da utilizzare un queue manager per gestire questa cosa
+     * in maniera asincrona ( o usare exec() )
      * @return TestElement
      */
     public function get() {
         if(!$this->currentTest()) {
-            return TestElement::queue()->orderBy('created_at','desc')->first();
+	    $test = TestElement::queue()->orderBy('created_at','desc')->first();
+	    self::setWifi($test->signal_strenght);
+            return $test;
         } else {
             return $this->currentTest();
         }
