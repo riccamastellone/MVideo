@@ -37,6 +37,7 @@ Route::post('/delete-queue', function() {
 Route::post('/create-test', 'TestController@create');
 
 Route::get('/power/off', function() {
+    if(Config::get('app.pretend')) return;
     
     $ssh = BaseController::connectSSH();
     // Spegnamo entrambe le porte USB
@@ -45,6 +46,7 @@ Route::get('/power/off', function() {
 });
 
 Route::get('/power/on', function() {
+    if(Config::get('app.pretend')) return;
     
     $ssh = BaseController::connectSSH();
     // Accendiamo entrambe le porte USB

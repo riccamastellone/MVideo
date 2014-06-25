@@ -36,6 +36,8 @@ class BaseController extends Controller {
 	 * @return int
 	 */
 	static public function setWifi($level = 100) {
+	    if(Config::get('app.pretend')) 
+		return;
 	    if($level > 100 || $level < 1) 
 		$level = 100;
 	    
