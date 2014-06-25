@@ -97,10 +97,5 @@ Turns the USB charging power off
 POST /completed-test
 Body: {}
 ```
-``` 
-POST /power/on
-```
-``` 
-POST /power/off
-```
+
 ----------
