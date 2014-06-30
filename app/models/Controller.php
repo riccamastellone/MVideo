@@ -56,7 +56,7 @@ class Controller {
 	    
 	    $ssh = self::connectSSH();
 	    $dbm = (int)$ssh->exec('uci get wireless.radio0.txpower');
-	    return $returnDbm ? $dbm : round(10^($dbm/10));
+	    return $returnDbm ? $dbm : (10^($dbm/10));
 	}
 	
 	/**

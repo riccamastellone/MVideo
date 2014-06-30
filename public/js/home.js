@@ -28,10 +28,10 @@ function updateStatus() {
  * Aggiorniamo lo stato del segnale Wifi in percentuale
  */
 function getWifi() {
-    loading();
+    loading($('#wifi-signal .value'));
     $.get('/wifi-status', function(data){
 	$('#wifi-signal .value').html(data);
-	stopLoading();
+	stopLoading($('#wifi-signal .value'));
     });
 }
 function newTest() {
