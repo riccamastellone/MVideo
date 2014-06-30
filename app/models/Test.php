@@ -2,10 +2,9 @@
 
 class Test extends Eloquent {
     
-     protected $table = 'tests';
+    protected $table = 'tests';
      
-    public function tests()
-    {
+    public function tests() {
         return $this->hasMany('TestElement');
     }
     
