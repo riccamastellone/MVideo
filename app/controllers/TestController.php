@@ -34,7 +34,7 @@ class TestController extends BaseController {
      * causando un discreto delay nella risposta in quando deve stabilire una connessione
      * SSH al router. Sarebbe da utilizzare un queue manager per gestire questa cosa
      * in maniera asincrona ( o usare exec() )
-     * @return TestElement
+     * @return Array
      */
     public function get() {
         if(!$this->currentTest()) {
@@ -45,9 +45,9 @@ class TestController extends BaseController {
 		$test = $test->first();
 	    }
 	    MVideo\Controller::setWifi($test->signal_strenght);
-            return $test;
+            return array('status'=> 'success', 'message' => 'New test retrieved', 'data' => $test);
         } else {
-            return $this->currentTest();
+            return array('status'=> 'success', 'message' => 'Current test retrieved', 'data' => $this->currentTest());
         }
         
     }
@@ -57,7 +57,8 @@ class TestController extends BaseController {
      * @param int $id
      * @return TestElement
      */
-    public function start($id = null) {
+    public function start() {
+	$id = Input::get('test-id');
         if(!$id) return;
         
         // Non vogliamo avere più di un test avviato

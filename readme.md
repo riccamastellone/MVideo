@@ -25,17 +25,22 @@ Use this call to get a new (or current, read the note) test.
 Example response:
 ```json
 {
-    "id":"1",
-    "test_id":"12",
-    "media":"uploads\/o_18pk48a6dba5s3vb8u1k8sksh9.jpg",
-    "brightness":"80",
-    "network":"wifi",
-    "signal_strenght":"100",
-    "volume":"0",
-    "started":"2014-06-16 08:38:09",
-    "completed":null,
-    "created_at":"2014-06-04 19:03:59",
-    "updated_at":"2014-06-16 08:38:09"
+    "status":"success",
+    "message":"New test retrieved",
+    "data":
+    {
+	"id":"1",
+	"test_id":"12",
+	"media":"uploads\/o_18pk48a6dba5s3vb8u1k8sksh9.jpg",
+	"brightness":"80",
+	"network":"wifi",
+	"signal_strenght":"100",
+	"volume":"0",
+	"started":"2014-06-16 08:38:09",
+	"completed":null,
+	"created_at":"2014-06-04 19:03:59",
+	"updated_at":"2014-06-16 08:38:09"
+    }
 }
 ```
 - *id* -  ID of the single test
@@ -94,7 +99,6 @@ Turns the USB charging power off
 [TODO]
 -------
 
-La risposta del json di /test deve includere `{"status":"success","message":""}`
 ``` 
 POST /completed-test
 Body: {}

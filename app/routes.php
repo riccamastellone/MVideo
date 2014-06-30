@@ -18,7 +18,7 @@ Route::get('/', function()
 
 Route::get('/test', 'TestController@get');
 
-Route::post('/start-test/{id}', 'TestController@start'); // DA CAMBIARE
+Route::post('/start-test', 'TestController@start'); 
 Route::post('/completed-test', 'TestController@complete');
 
 // Plupload
