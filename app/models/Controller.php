@@ -1,4 +1,7 @@
-<?php
+<?php 
+
+namespace MVideo;
+use Config;
 /**
  * Classe con metodi statici per il controllo di un router con OpenWrt
  * @author Riccardo Mastellone <riccardo.mastellone@mail.polimi.it>
@@ -12,8 +15,8 @@ class Controller {
 	 * @return \Net_SSH2
 	 */
 	static public function connectSSH() {
-	    $ssh = new Net_SSH2('192.168.1.1');
-	    $key = new Crypt_RSA();
+	    $ssh = new \Net_SSH2('192.168.1.1');
+	    $key = new \Crypt_RSA();
 	    $key->loadKey(file_get_contents('../docs/private.key'));
 	    if (!$ssh->login('root', $key)) {
 		exit('Login Failed');
@@ -51,9 +54,9 @@ class Controller {
 		return $returnDbm ? 20 : 100;
 	    }
 	    
-	    $ssh = BaseController::connectSSH();
+	    $ssh = self::connectSSH();
 	    $dbm = (int)$ssh->exec('uci get wireless.radio0.txpower');
-	    return $returnDbm ? $dbm : exp($dbm)/10;
+	    return $returnDbm ? $dbm : round(10^($dbm/10));
 	}
 	
 	/**
@@ -73,7 +76,7 @@ class Controller {
 		$value = 0;
 	    }
 	    
-	    $ssh = BaseController::connectSSH();
+	    $ssh = self::connectSSH();
 	    // Cambiamo i valori di entrambe le porte USB
 	    $ssh->exec('echo '.$value.' > /sys/class/gpio/gpio22/value');
 	    $ssh->exec('echo '.$value.' > /sys/class/gpio/gpio22/value');

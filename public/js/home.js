@@ -11,8 +11,11 @@ $(function() {
     updateCount();
   });
   updateStatus();
-
+  getWifi();
 });
+/**
+ * Aggiorniamo le informazioni sui test attualmente in corso / coda
+ */
 function updateStatus() {
   loading();
   $.get( "/queue-status", function(data) {
@@ -20,6 +23,16 @@ function updateStatus() {
         $("#total-tests").html(data.total);
         stopLoading();
     }, "json" );
+}
+/**
+ * Aggiorniamo lo stato del segnale Wifi in percentuale
+ */
+function getWifi() {
+    loading();
+    $.get('/wifi-status', function(data){
+	$('#wifi-signal .value').html(data);
+	stopLoading();
+    });
 }
 function newTest() {
     $('#new-test').show();

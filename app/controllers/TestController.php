@@ -44,7 +44,7 @@ class TestController extends BaseController {
 	    } else {
 		$test = $test->first();
 	    }
-	    Controller::setWifi($test->signal_strenght);
+	    MVideo\Controller::setWifi($test->signal_strenght);
             return $test;
         } else {
             return $this->currentTest();

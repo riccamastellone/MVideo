@@ -37,13 +37,22 @@ Route::post('/delete-queue', function() {
 Route::post('/create-test', 'TestController@create');
 
 Route::get('/power/off', function() {
-    Controller::power('off');
+    MVideo\Controller::power('off');
     return array('status'=> 'success', 'message' => 'Power turned off');
 });
 
 Route::get('/power/on', function() {
-    Controller::power('on');
+    MVideo\Controller::power('on');
     return array('status'=> 'success', 'message' => 'Power turned on');
-    
+});
+
+Route::get('/wifi-status', function() {
+    return Cache::get('wifi-status', function() { 
+	$value = MVideo\Controller::getWifiStatus();
+	// Evitiamo di stabilire una connessione SSH ogni volta che dobbiamo
+	// recuperare il valore. Salviamolo nella cache per 5 minuti
+	Cache::put('wifi-status', $value, 5); 
+	return $value;
+    });
 });
 
