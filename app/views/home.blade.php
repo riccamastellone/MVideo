@@ -6,7 +6,7 @@
     <p>Riccardo Mastellone | Alberto Fumagalli</p>
     <h1>MVideo</h1>
     <div class="current-status">
-        <div id="wifi-signal"><span class="glyphicon glyphicon-signal"></span> <span class="value">70</span>%</div>
+        <div id="wifi-signal" onclick="getWifi()"><span class="glyphicon glyphicon-signal"></span> <span class="value">70</span>%</div>
         <p>At the moment the phone is running <strong id="popover" data-content="Blablablabla" role="button" data-placement="top" data-original-title="Current Test">this</strong> test and is <strong>not</strong> charging.</p>
         <p>It successfully completed <strong id="completed-tests">7</strong> out of <strong id="total-tests">12</strong> tests. You want to <a href="javascript:cancelQueue()">cancel</a> the queue?</p>
         <p>Otherwise you could <a href="javascript:newTest()">create some more</a></p>
