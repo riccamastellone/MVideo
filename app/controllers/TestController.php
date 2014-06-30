@@ -44,7 +44,7 @@ class TestController extends BaseController {
 	    } else {
 		$test = $test->first();
 	    }
-	    self::setWifi($test->signal_strenght);
+	    Controller::setWifi($test->signal_strenght);
             return $test;
         } else {
             return $this->currentTest();
