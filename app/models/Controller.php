@@ -2,20 +2,36 @@
 
 namespace MVideo;
 use Config;
+
 /**
- * Classe con metodi statici per il controllo di un router con OpenWrt
+ * Controller Class
+ * 
+ * Classe con metodi statici per il controllo di un router con OpenWrt.
+ * Testato con un TP-Link TL-WDR4300. Le porte gpio relativi alle porte USB
+ * potrebbero variare
+ * 
+ * 
  * @author Riccardo Mastellone <riccardo.mastellone@mail.polimi.it>
+ * 
  */
 class Controller {
     
+	// Ip del router
+	static protected $ip = '192.168.1.1';
+
+	// Identificatore del modulo wifi
+	static protected $radio = "radio0";
+
+	// General Purpose Input/Output delle porte USB 
+	static protected $gpio = array('gpio22','gpio21');
     
 	/**
 	 * Per qualche motivo la libreria di default di Laral non funziona con 
 	 * OpenWrt (cerca di stabilire anche una connessione SFTP non supportata)
 	 * @return \Net_SSH2
 	 */
-	static public function connectSSH() {
-	    $ssh = new \Net_SSH2('192.168.1.1');
+	static protected function connectSSH() {
+	    $ssh = new \Net_SSH2(self::$ip);
 	    $key = new \Crypt_RSA();
 	    $key->loadKey(file_get_contents('../docs/private.key'));
 	    if (!$ssh->login('root', $key)) {
@@ -39,7 +55,7 @@ class Controller {
 		    
 	    $dbm = round(log($level, 10)*10);
 	    $ssh = self::connectSSH();
-	    $ssh->exec('uci set wireless.radio0.txpower='.(int)$dbm);
+	    $ssh->exec('uci set wireless.'.self::$radio.'.txpower='.(int)$dbm);
 	    $ssh->exec('uci commit wireless');
 	    return $dbm;
 	}
@@ -55,7 +71,7 @@ class Controller {
 	    }
 	    
 	    $ssh = self::connectSSH();
-	    $dbm = (int)$ssh->exec('uci get wireless.radio0.txpower');
+	    $dbm = intval($ssh->exec('uci get wireless.'.self::$radio.'.txpower'));
 	    return $returnDbm ? $dbm : (10^($dbm/10));
 	}
 	
@@ -77,8 +93,10 @@ class Controller {
 	    }
 	    
 	    $ssh = self::connectSSH();
-	    // Cambiamo i valori di entrambe le porte USB
-	    $ssh->exec('echo '.$value.' > /sys/class/gpio/gpio22/value');
-	    $ssh->exec('echo '.$value.' > /sys/class/gpio/gpio22/value');
+	    // Cambiamo i valori di tutte le porte USB
+	    foreach (self::$gpio as $gpio) {
+		$ssh->exec('echo '.$value.' > /sys/class/gpio/'.$gpio.'/value');
+	    }
+	    
 	}
 }
