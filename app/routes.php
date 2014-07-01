@@ -56,3 +56,14 @@ Route::get('/wifi-status', function() {
     });
 });
 
+
+Route::get('/power-status', function() {
+    return Cache::get('power-status', function() { 
+	$value = MVideo\Controller::powerStatus();
+	// Evitiamo di stabilire una connessione SSH ogni volta che dobbiamo
+	// recuperare il valore. Salviamolo nella cache per 5 minuti
+	Cache::put('power-status', $value, 5); 
+	return $value;
+    });
+});
+

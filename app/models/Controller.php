@@ -99,4 +99,24 @@ class Controller {
 	    }
 	    
 	}
+	
+	/**
+	 * Ritorniamo lo stato dell'alimentazione delle porte USB
+	 * @return array
+	 */
+	static public function powerStatus() {
+	    $values = array();
+	    
+	    if(Config::get('mvideo.pretend')) {
+		foreach (self::$gpio as $gpio) {
+		    $values[$gpio] = 1;
+		}
+	    } else {
+		$ssh = self::connectSSH();
+		foreach (self::$gpio as $gpio) {
+		    $values[$gpio] = $ssh->exec('cat /sys/class/gpio/'.$gpio.'/value');
+		}
+	    }
+	    return $values;
+	}
 }
