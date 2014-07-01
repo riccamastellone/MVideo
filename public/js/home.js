@@ -15,24 +15,24 @@ $(function() {
   
 });
 
-function first(obj) {
-    for (var a in obj) return a;
-}
-function getPower() {
-    loading($('#not-charging'));
-    $.get('/power-status', function(data){
-	// Utilizziamo solo la prima porta USB come riferimento
-	if(!data[first(data)]) {
-	    $('#not-charging').show();
-	} else {
-	    $('#not-charging').hide();
-	}
-	stopLoading($('#not-charging'));
-    });
-}
 // Utilizziamo questa variabile per segnare se ho test in corso o meno
 var has_test = false;
 
+
+// == FUNZIONI HELPER 
+
+function first(obj) {
+    for (var a in obj) return a;
+}
+
+// == FINE FUNZIONI HELPER 
+
+
+// ==  FUNZIONI PER RECUPERO INFO CONTROLLER 
+
+/**
+ * Aggiorniamo i vari parametri con lo stato del controller
+ */
 function updateStatus() {
   loading();
   $.get( "/queue-status", function(data) {
@@ -47,6 +47,25 @@ function updateStatus() {
     getPower();
     getWifi();
 }
+
+/**
+ * Stato dell'alimentazione
+ */
+function getPower() {
+    loading($('#not-charging'));
+    $.get('/power-status', function(data){
+	// Utilizziamo solo la prima porta USB come riferimento
+	if(!data[first(data)]) {
+	    $('#not-charging').show();
+	} else {
+	    $('#not-charging').hide();
+	}
+	stopLoading($('#not-charging'));
+    });
+}
+/**
+ * Stato del test corrente se presente
+ */
 function getCurrentTest() {
     if(has_test) {
 	$.get( "/test", function(data) {
@@ -67,6 +86,12 @@ function getWifi() {
 	stopLoading($('#wifi-signal .value'));
     });
 }
+
+// == FINE FUNZIONI PER RECUPERO INFO CONTROLLER 
+
+
+// == FUNZIONI PER LA CREAZIONE DEL TEST
+
 function newTest() {
     $('#new-test').show();
     scrollTo('new-test');
@@ -101,12 +126,6 @@ function buttonStatus(id) {
     } else {
         return 'enabled';
    }
-}
-
-function cancelQueue() {
-    $.post( "/delete-queue", function() {
-        updateStatus();
-      });
 }
 
 function updateCount() {
@@ -179,4 +198,14 @@ function createTest() {
             updateStatus();
         }
     }, "json");
+}
+
+
+// == FINE FUNZIONI CREAZIONE TEST
+
+
+function cancelQueue() {
+    $.post( "/delete-queue", function() {
+        updateStatus();
+      });
 }
