@@ -12,26 +12,27 @@ $(function() {
   });
   updateStatus();
   
-  getWifi();
+  
 });
 
-function getCurrentTest() {
-    if(has_test) {
-	$.get( "/test", function(data) {
-	    $('#popover').attr('data-content',data);
-	}, "json" );
-    } else {
-	$('#not-running').html('<strong>not</strong>');
-	$('#popover').html('a').css('font-weight','lighter');
-    }
-    
+function first(obj) {
+    for (var a in obj) return a;
 }
-/**
- * Aggiorniamo le informazioni sui test attualmente in corso / coda
- */
-
+function getPower() {
+    loading($('#not-charging'));
+    $.get('/power-status', function(data){
+	// Utilizziamo solo la prima porta USB come riferimento
+	if(!data[first(data)]) {
+	    $('#not-charging').show();
+	} else {
+	    $('#not-charging').hide();
+	}
+	stopLoading($('#not-charging'));
+    });
+}
 // Utilizziamo questa variabile per segnare se ho test in corso o meno
 var has_test = false;
+
 function updateStatus() {
   loading();
   $.get( "/queue-status", function(data) {
@@ -43,6 +44,18 @@ function updateStatus() {
 	}
         stopLoading();
     }, "json" );
+    getPower();
+    getWifi();
+}
+function getCurrentTest() {
+    if(has_test) {
+	$.get( "/test", function(data) {
+	    $('#popover').attr('data-content',data);
+	}, "json" );
+    } else {
+	$('#not-running').html('<strong>not</strong>');
+	$('#popover').html('a').css('font-weight','lighter');
+    }
 }
 /**
  * Aggiorniamo lo stato del segnale Wifi in percentuale
