@@ -45,9 +45,9 @@ class TestController extends BaseController {
 		$test = $test->first();
 	    }
 	    MVideo\Controller::setWifi($test->signal_strenght);
-            return array('status'=> 'success', 'message' => 'New test retrieved', 'data' => $test);
+            return array('status'=> 'success', 'message' => 'New test retrieved', 'data' => $test->toArray());
         } else {
-            return array('status'=> 'success', 'message' => 'Current test retrieved', 'data' => $this->currentTest());
+            return array('status'=> 'success', 'message' => 'Current test retrieved', 'data' => $this->currentTest()->toArray());
         }
         
     }
@@ -59,7 +59,7 @@ class TestController extends BaseController {
      */
     public function start() {
 	$id = Input::get('test-id');
-        if(!$id) return;
+        if(!$id) return array('status'=> 'error', 'message' => 'Invalid test id');
         
         // Non vogliamo avere più di un test avviato
         if($this->currentTest() && $this->currentTest()->id != $id) {

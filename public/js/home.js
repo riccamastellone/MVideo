@@ -11,16 +11,36 @@ $(function() {
     updateCount();
   });
   updateStatus();
+  
   getWifi();
 });
+
+function getCurrentTest() {
+    if(has_test) {
+	$.get( "/test", function(data) {
+	    $('#popover').attr('data-content',data);
+	}, "json" );
+    } else {
+	$('#not-running').html('<strong>not</strong>');
+	$('#popover').html('a').css('font-weight','lighter');
+    }
+    
+}
 /**
  * Aggiorniamo le informazioni sui test attualmente in corso / coda
  */
+
+// Utilizziamo questa variabile per segnare se ho test in corso o meno
+var has_test = false;
 function updateStatus() {
   loading();
   $.get( "/queue-status", function(data) {
         $("#completed-tests").html(data.completed);
         $("#total-tests").html(data.total);
+	if(data.total !== (data.completed + data.queue)) { // Abbiamo un test in corso
+	    has_test = true;
+	    getCurrentTest();
+	}
         stopLoading();
     }, "json" );
 }
