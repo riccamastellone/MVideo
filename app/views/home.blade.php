@@ -28,7 +28,9 @@
                 <button type="button" id="3g" class="btn btn-default btn-lg" onclick="toggleButton('3g')">3G Connectivity <span class="glyphicon glyphicon-remove"></span></button>
                 <button type="button" id="wifi" class="btn btn-default btn-lg" <?= Config::get('mvideo.enable-wifi-levels') ? "onclick=\"toggleButton('wifi')\"" : 'disabled="disabled"'?>>Wifi Strenght <span class="glyphicon glyphicon-remove"></span></button>
                 <button type="button" id="audio" class="btn btn-default btn-lg" onclick="toggleButton('audio')">Audio <span class="glyphicon glyphicon-remove"></span></button> 
-                <button type="button" disabled="disabled" class="btn btn-default btn-lg">AV Bitrate <span class="glyphicon glyphicon-remove"></span></button>
+                <!-- <button type="button" disabled="disabled" class="btn btn-default btn-lg">AV Bitrate <span class="glyphicon glyphicon-remove"></span></button> -->
+		<button type="button" id="length" class="btn btn-default btn-lg" onclick="toggleButton('length')">Length <span class="glyphicon glyphicon-remove"></span></button>
+
                 <input type="hidden" name="media">
             </p>
             <p>With these settings <strong id="t-count">1</strong> new tests will be queued</p>
@@ -90,6 +92,59 @@
                     <span class="input-group-addon">%</span>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+ 
+<!-- MAX VIDEO LENGHT -->
+<div class="modal fade" id="length-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Max played video length</h4>
+            </div>
+            <div class="modal-body">
+                <p>How many hours/minutes of the video you want to play at most? <br>
+		Please note that if the video is shorted than the time you set, this setting
+		will not be respected</p>
+		<div class="time-container row">
+		    <div class="col-sm-6">
+			<div class="form-group">
+			<label>Hours</label>
+			<select class="form-control">
+			<?php
+
+			    for( $i = 0; $i <= 12 ; $i++ ) {
+				echo "<option value='{$i}'>";
+				echo $i < 10 ? '0'.$i : $i;
+				echo "</option>";
+			    }
+
+			?>
+			</select>
+			</div>
+		    </div>
+		    <div class="col-sm-6">
+			<div class="form-group">
+			<label>Minutes</label>
+			<select class="form-control">
+			<?php
+
+			    for( $i = 0; $i <= 59 ; $i++ ) {
+				$checked = $i == 15 ? 'checked="checked"' : '';
+				echo "<option value='{$i}' $checked >";
+				echo $i < 10 ? '0'.$i : $i;
+				echo "</option>";
+			    }
+
+			?>
+			</select>
+			</div>
+		    </div>
+		</div>
+            </div>
+	    .
         </div>
     </div>
 </div>

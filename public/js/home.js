@@ -106,7 +106,9 @@ function toggleButton(id) {
             $("#wifi-modal").modal('show')
         } else if(id === 'audio') {
             $("#audio-modal").modal('show')
-        } 
+        } else if(id === 'length') {
+            $("#length-modal").modal('show')
+        }
     }
     
     if(span.hasClass('glyphicon-remove')) {
