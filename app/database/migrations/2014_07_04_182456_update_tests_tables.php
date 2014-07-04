@@ -14,11 +14,11 @@ class UpdateTestsTables extends Migration {
 	{
 	    Schema::table('tests', function($table)
             {
-                    $table->time('max_lenght')->nullable();
+                    $table->time('max_length')->nullable();
             });
 	    Schema::table('tests_list', function($table)
             {
-                    $table->time('max_lenght')->nullable();
+                    $table->time('max_length')->nullable();
             });
 	}
 
@@ -31,11 +31,11 @@ class UpdateTestsTables extends Migration {
 	{
 	    Schema::table('tests', function($table)
             {
-                    $table->dropColumn('max_lenght');
+                    $table->dropColumn('max_length');
             });
 	    Schema::table('tests_list', function($table)
             {
-                    $table->time('max_lenght')->nullable();
+                    $table->time('max_length')->nullable();
             });
 	    
 	}

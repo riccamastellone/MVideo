@@ -1,5 +1,10 @@
 <?php
-
+/**
+ * Modello per gestire i test
+ * 
+ * @author Riccardo Mastellone <riccardo.mastellone@mail.polimi.it>
+ * 
+ */
 class Test extends Eloquent {
     
     protected $table = 'tests';
@@ -65,7 +70,9 @@ class Test extends Eloquent {
             $brightness[] = 80; // Luminosità di default
         }
         
-        if($this->signal_strenght_steps) { // TODO - Wifi in realtà non è in 0-100%
+	// Salviamo il segnale il %, lo processiamo e convertiamo in dbm nel
+	// modello del controller
+        if($this->signal_strenght_steps) {
             $i = 100;
             while($i >= 0) {
                 $signal[] = $i;
@@ -75,14 +82,17 @@ class Test extends Eloquent {
             $signal[] = 100; // Segnale wifi di default
         }
         
-        if($this->volume_steps) { // TODO - Volume in realtà non è in 0-100%
+	// Anche qui salviamo in % e lasciamo gestire al dispositivo
+	// il calcolo
+        if($this->volume_steps) {
             $i = 100;
             while($i >= 0) {
                 $volume[] = $i;
                 $i = $i - $this->volume_steps;
             }
         } else {
-            $volume[] = 0; // Livello volume di default
+	    // Di default non vogliamo che ci sia volume
+            $volume[] = 0;
         }
         
         
@@ -96,6 +106,7 @@ class Test extends Eloquent {
                     $test->brightness = $bright;
                     $test->signal_strenght = $sig;
                     $test->volume = $vol;
+		    $test->max_length = $this->max_length ? $this->max_length : NULL;
                     $test->save();
                     
                     if($this->network == '3g') {
@@ -105,6 +116,7 @@ class Test extends Eloquent {
                         $test->brightness = $bright;
                         $test->signal_strenght = $sig;
                         $test->volume = $vol;
+			$test->max_length = $this->max_length ? $this->max_length : NULL;
                         $test->network = '3g';
                         $test->save();
                     }  

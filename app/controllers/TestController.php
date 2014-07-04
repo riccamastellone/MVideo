@@ -22,10 +22,14 @@ class TestController extends BaseController {
         
         if($json['brightness'])
             $test->brightness_steps = $json['brightness'];
+	
+	if($json['length'])
+            $test->max_length = $json['length'];
+	
         $test->save();
         
         $test->explodeTest();
-        return array('result' => 'success', 'message' => '');
+        return array('result' => 'success', 'message' => 'New tests created');
     }
     
     /**
