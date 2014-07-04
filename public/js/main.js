@@ -32,3 +32,11 @@ function loading(object) {
 function stopLoading() {
     $('#overlay').remove();
 }
+
+/**
+ * Aggiorniamo la pagina in maniera carina
+ */
+function refresh() {
+    loading();
+    window.location.reload();
+}

@@ -207,7 +207,7 @@ function createTest() {
             alert(data.message);
         } else {
             $('#create-button').html('Done!');
-	    $('#create-button').parent().append(' <button type="button" class="btn btn-success btn-lg" onclick="window.location.reload()">Restart?</button>');
+	    $('#create-button').parent().append(' <button type="button" class="btn btn-success btn-lg" onclick="refresh()">Restart?</button>');
             updateStatus();
         }
     }, "json");
