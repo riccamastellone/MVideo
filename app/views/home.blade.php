@@ -112,11 +112,11 @@
 		    <div class="col-sm-6">
 			<div class="form-group">
 			<label>Hours</label>
-			<select class="form-control">
+			<select class="form-control" name="length-hours">
 			<?php
 
 			    for( $i = 0; $i <= 12 ; $i++ ) {
-				echo "<option value='{$i}'>";
+				echo "<option>";
 				echo $i < 10 ? '0'.$i : $i;
 				echo "</option>";
 			    }
@@ -128,12 +128,12 @@
 		    <div class="col-sm-6">
 			<div class="form-group">
 			<label>Minutes</label>
-			<select class="form-control">
+			<select class="form-control" name="length-minutes">
 			<?php
 
 			    for( $i = 0; $i <= 59 ; $i++ ) {
-				$checked = $i == 15 ? 'checked="checked"' : '';
-				echo "<option value='{$i}' $checked >";
+				$selected = $i == 15 ? 'selected="selected"' : '';
+				echo "<option $selected >";
 				echo $i < 10 ? '0'.$i : $i;
 				echo "</option>";
 			    }

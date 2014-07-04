@@ -133,6 +133,13 @@ function buttonStatus(id) {
 function updateCount() {
     $('#t-count').html(calculateTests());
 }
+
+/**
+ * Calcoliamo il numero totale di test che verrebbero generati a partire
+ * dalla configurazione fornita dall'utente
+ * 
+ * @returns int
+ */
 function calculateTests() {
     
     if(buttonStatus('audio') === 'enabled') {
@@ -188,6 +195,9 @@ function createTest() {
     } else {
         data['network'] = 'wifi';
     }
+    if(buttonStatus('length') === 'enabled') {
+        data['length'] = $('select[name=length-hours]').val() + ':' + $('select[name=length-minutes]').val();
+    } 
     
     data['media'] = $('input[name=media]').val();
     
