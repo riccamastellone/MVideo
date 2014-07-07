@@ -134,6 +134,7 @@ function updateCount() {
     $('#t-count').html(calculateTests());
 }
 
+
 /**
  * Calcoliamo il numero totale di test che verrebbero generati a partire
  * dalla configurazione fornita dall'utente
