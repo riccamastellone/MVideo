@@ -46,7 +46,7 @@ Example response:
 ```
 - *id* -  ID of the single test
 - *test_id* - ID of the test group (You may ignore this)
-- *media* - Relative media path
+- *media* - Relative media path if the video was uploaded, absolute url if youtube link or manually inserted url
 - *max_length* - If the video is longer than this time, the test should stop. (HH:MM:SS)
 - *brightness* - Brightness [0-100]
 - *network* - Network to be used [wifi,3g]
