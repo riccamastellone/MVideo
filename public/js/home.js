@@ -39,8 +39,9 @@ function updateStatus() {
         $("#completed-tests").html(data.completed);
         $("#total-tests").html(data.total);
 	if(data.total !== (data.completed + data.queue)) { // Abbiamo un test in corso
-	    has_test = true;
-	    getCurrentTest();
+	    setCurrentTest(true);
+	} else {
+	    setCurrentTest(false);
 	}
         stopLoading();
     }, "json" );
@@ -66,7 +67,7 @@ function getPower() {
 /**
  * Stato del test corrente se presente
  */
-function getCurrentTest() {
+function setCurrentTest(has_test) {
     if(has_test) {
 	$.get( "/test", function(data) {
 	    $('#popover').attr('data-content',data);

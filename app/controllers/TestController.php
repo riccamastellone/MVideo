@@ -23,7 +23,7 @@ class TestController extends BaseController {
         if($json['brightness'])
             $test->brightness_steps = $json['brightness'];
 	
-	if($json['length'])
+	if(isset($json['length']))
             $test->max_length = $json['length'];
 	
         $test->save();

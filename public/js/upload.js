@@ -72,7 +72,7 @@ function processUrl() {
     if(validUrl(url)) {
 	saveMedia(url);
     } else {
-	$("#input-modal .modal-body").prepend('<div class="alert alert-danger">Please enter a valid url</div>')
+	$("#input-modal .modal-body").prepend('<div class="alert alert-danger">Please enter a valid url</div>');
     }
     
 }

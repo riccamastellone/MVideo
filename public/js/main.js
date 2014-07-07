@@ -4,13 +4,21 @@
  * 
  */
 
+if(!window.jQuery) {
+    document.querySelector('body').innerHTML = 'Sorry, there was an error loading some js resources, please reload the page'
+}
 /**
- * Regex molto semplice per validare l'url passato (da migliorare sicuramente)
+ * Provate varie regex ma ci sono sempre dei falsi positivi.
+ * Provato anche a fare una chiamata ajax per testare il codice della risposta
+ * ma per Access-Control-Allow-Origin la maggior parte delle risorse non ti 
+ * permettono di farlo
+ * 
+ * @todo da fare
+ * 
  * @returns bool
  */
 function validUrl(url){
-    return /((ftp|https?):\/\/)?(www\.)?[a-z0-9\-\.]{3,}\.[a-z]{3}$/
-    .test(url);
+    return true;
 }
    
 /**
