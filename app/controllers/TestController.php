@@ -47,13 +47,27 @@ class TestController extends BaseController {
 		return array('status'=> 'error', 'message' => 'No test available');
 	    } else {
 		$test = $test->first();
+		$test->max_length = self::convertSeconds($test->max_length);
 	    }
 	    MVideo\Controller::setWifi($test->signal_strenght);
             return array('status'=> 'success', 'message' => 'New test retrieved', 'data' => $test->toArray());
         } else {
-            return array('status'=> 'success', 'message' => 'Current test retrieved', 'data' => $this->currentTest()->toArray());
+	    $test = $this->currentTest();
+	    $test->max_length = self::convertSeconds($test->max_length);;
+            return array('status'=> 'success', 'message' => 'Current test retrieved', 'data' => $test->toArray());
         }
         
+    }
+    
+    /**
+     * Convertiamo il formato hh:mm:ss in secondi
+     * @param string $str_time
+     * @return int
+     */
+    private static function convertSeconds($str_time) {
+	$str_time = preg_replace("/^([\d]{1,2})\:([\d]{2})$/", "00:$1:$2", $str_time);
+	sscanf($str_time, "%d:%d:%d", $hours, $minutes, $seconds);
+	return $hours * 3600 + $minutes * 60 + $seconds;
     }
     
     /**
