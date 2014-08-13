@@ -32,7 +32,7 @@ Example response:
 	    "id":"1",
 	    "test_id":"12",
 	    "media":"uploads\/o_18pk48a6dba5s3vb8u1k8sksh9.jpg",
-	    "max_length":"02:16:00",
+	    "max_length":"210",
 	    "brightness":"80",
 	    "network":"wifi",
 	    "signal_strenght":"100",
@@ -47,7 +47,7 @@ Example response:
 - *id* -  ID of the single test
 - *test_id* - ID of the test group (You may ignore this)
 - *media* - Relative media path if the video was uploaded, absolute url if youtube link or manually inserted url
-- *max_length* - If the video is longer than this time, the test should stop. (HH:MM:SS)
+- *max_length* - If the video is longer than this time, the test should stop. (value given in seconds)
 - *brightness* - Brightness [0-100]
 - *network* - Network to be used [wifi,3g]
 - *signal_strenght* - Strenght of the wifi signal (You may ignore this as is a parameter handled by the controller)
