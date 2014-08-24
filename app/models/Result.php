@@ -1,13 +1,15 @@
 <?php
 
-class TestElement extends Eloquent {
+class Result extends Eloquent {
     
-     protected $table = 'tests_list';
+     protected $table = 'results';
      
-     
+    /**
+     * Relazione con il test
+     */
     public function test()
     {
-        return $this->belongsTo('Test');
+        return $this->belongsTo('TestElement','test_id');
     }
     
     /**

@@ -11,6 +11,12 @@ class TestElement extends Eloquent {
     }
     
     /**
+     * Relazione con la row risultato
+     */
+    public function result() {
+	$this->hasOne('Result','test_id','id');
+    }
+    /**
      * Ritorniamo il numero di test ancora da eseguire
      * @param type $query
      * @return int
