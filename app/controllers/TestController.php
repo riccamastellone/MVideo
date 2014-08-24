@@ -78,6 +78,7 @@ class TestController extends BaseController {
     public function start() {
 	$id = Input::json('test-id');
         if(!$id) return array('status'=> 'error', 'message' => 'Invalid test id');
+	
         
         // Non vogliamo avere più di un test avviato
         if($this->currentTest() && $this->currentTest()->id != $id) {
@@ -87,7 +88,9 @@ class TestController extends BaseController {
         $test = TestElement::find($id);
 	if(!$test) {
 	    return array('status'=> 'error', 'message' => 'Invalid test id'); 
-	} 
+	} else if($test->completed) {
+	    return array('status'=> 'error', 'message' => 'Test already completed'); 
+	}
         $test->started = date("Y-m-d H:i:s");
         $test->save();
         return $test;
