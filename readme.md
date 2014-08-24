@@ -97,7 +97,7 @@ GET /power/off
 ```
 Turns the USB charging power off
 
-
+#### Sumitting results
 ``` 
 POST /completed-test
 Body: 
