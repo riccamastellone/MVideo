@@ -3,8 +3,10 @@
 class Result extends Eloquent {
     
      protected $table = 'results';
-     
-    /**
+     protected $primaryKey = 'test_id';
+
+
+     /**
      * Relazione con il test
      */
     public function test()

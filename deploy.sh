@@ -26,10 +26,10 @@ echo -e "GIT PULL ($BRANCH)"
 cd $DIR && git pull origin $BRANCH && git submodule update --recursive
 
 
-echo -e "DUMP-AUTOLOAD"
+echo "DUMP-AUTOLOAD"
 composer dump-autoload
 php $DIR/$ARTISAN dump-autoload
 
-echo -e "MIGRATION"
+echo "MIGRATION"
 
 php $DIR/$ARTISAN migrate

@@ -18,18 +18,18 @@ class CreateResultsTable extends Migration {
                 $table->integer('test_id')->unique(); // Lo usiamo come chiave
                 $table->string('imei');
 		$table->string('brightness');
-		$table->string('volume');
+		$table->string('volume')->nullable();
 		$table->string('used_battery');
-		$table->string('voltage');
-		$table->string('temperature');
-		$table->string('health');
-		$table->string('technology');
-		$table->string('wifi');
-		$table->string('ssid');
-		$table->string('speed');
-		$table->string('signal_strength');
-		$table->string('mobile_status');
-		$table->string('mobile_network_type');
+		$table->string('voltage')->nullable();
+		$table->string('temperature')->nullable();
+		$table->string('health')->nullable();
+		$table->string('technology')->nullable();
+		$table->string('wifi')->nullable();
+		$table->string('ssid')->nullable();
+		$table->string('speed')->nullable();
+		$table->string('signal_strength')->nullable();
+		$table->string('mobile_status')->nullable();
+		$table->string('mobile_network_type')->nullable();
 		$table->string('ip');
                 $table->timestamps();
                 

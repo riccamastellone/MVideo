@@ -76,7 +76,7 @@ class TestController extends BaseController {
      * @return TestElement
      */
     public function start() {
-	$id = Input::get('test-id');
+	$id = Input::json('test-id');
         if(!$id) return array('status'=> 'error', 'message' => 'Invalid test id');
         
         // Non vogliamo avere più di un test avviato
@@ -85,6 +85,9 @@ class TestController extends BaseController {
         }
 
         $test = TestElement::find($id);
+	if(!$test) {
+	    return array('status'=> 'error', 'message' => 'Invalid test id'); 
+	} 
         $test->started = date("Y-m-d H:i:s");
         $test->save();
         return $test;
@@ -94,7 +97,39 @@ class TestController extends BaseController {
      * Segnamo come completato un test
      */
     public function complete() {
-        
+        $data = Input::json();
+	$testElement = TestElement::find($data->get('test-id'));
+	if(!$testElement) {
+	    return array('status'=> 'error', 'message' => 'Invalid test id'); 
+	} else if(!$testElement->started) { // Test non risulta iniziato
+	    return array('status'=> 'error', 'message' => 'This test was never marked as started'); 
+	} else if (Result::find($data->get('test-id')) &&  $testElement->completed) {
+	    return array('status'=> 'error', 'message' => 'Results already exist for this test');  
+	}
+	
+	$result = new Result();
+	$result->test_id = $testElement->id;
+	$result->imei = $data->get('imei');
+	$result->brightness = $data->get('brightness');
+	$result->volume = $data->get('volume');
+	$result->used_battery = $data->get('battery used');
+	$result->voltage = $data->get('voltage');
+	$result->temperature = $data->get('temperature');
+	$result->health = $data->get('health');
+	$result->technology = $data->get('technology');
+	$result->wifi = $data->get('wifi status');
+	$result->ssid = $data->get('SSID');
+	$result->speed = $data->get('speed');
+	$result->signal_strength = $data->get('signal strength');
+	$result->mobile_status = $data->get('mobile status');
+	$result->mobile_network_type = $data->get('mobile network type');
+	$result->ip = $_SERVER['REMOTE_ADDR'];
+	$result->save();
+	
+	$testElement->completed = date("Y-m-d H:i:s");
+	$testElement->save();
+	
+	return array('status'=> 'success', 'message' => $result->toArray()); 
     }
     
     /**
