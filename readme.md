@@ -98,12 +98,24 @@ GET /power/off
 Turns the USB charging power off
 
 
-[TODO]
--------
-
 ``` 
 POST /completed-test
-Body: {}
+Body: 
+{ 
+    "test-id" : "10",
+    "imei" : 356440041081405,
+    "brightness":80.0,
+    "volume":60,
+    "battery used":0.0,
+    "voltage":4,
+    "temperature":250,
+    "health":2,
+    "technology":-1,
+    "wifi status":null,
+    "SSID":null,
+    "speed":"-1",
+    "signal strength":-1,
+    "mobile status":"Connected",
+    "mobile network type" : "Unknown"
+}
 ```
-
-----------
