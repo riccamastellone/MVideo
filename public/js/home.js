@@ -145,20 +145,20 @@ function updateCount() {
 function calculateTests() {
     
     if(buttonStatus('audio') === 'enabled') {
-        audio = Math.ceil(100/$('#audio-step').val());
+        audio = Math.ceil(100/$('#audio-step').val())+1;
     } else {
         audio = 1;
     }
     
     if(buttonStatus('wifi') === 'enabled') {
-        wifi = Math.ceil(100/$('#wifi-step').val());
+        wifi = Math.ceil(100/$('#wifi-step').val())+1;
     } else {
         wifi = 1;
     }
     
     
     if(buttonStatus('brightness') === 'enabled') {
-        brightness = Math.ceil(100/$('#brightness-step').val());
+        brightness = Math.ceil(100/$('#brightness-step').val())+1;
     } else {
         brightness = 1;
     }
