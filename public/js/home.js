@@ -70,7 +70,7 @@ function getPower() {
 function setCurrentTest(has_test) {
     if(has_test) {
 	$.get( "/test", function(data) {
-	    $('#popover').attr('data-content',data);
+	    $('#popover').attr('data-content', JSON.stringify(data.data, undefined, 2));
 	}, "json" );
     } else {
 	$('#not-running').html('<strong>not</strong>');

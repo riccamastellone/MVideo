@@ -35,6 +35,10 @@
     left: 50%;
     margin-left: -16px;
 }
+.popover-content {
+    font-size: 12px;
+    white-space: pre-wrap;
+}
 #new-test, #options {
     display: none;
 }
