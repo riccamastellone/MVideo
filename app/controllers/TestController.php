@@ -101,12 +101,13 @@ class TestController extends BaseController {
      */
     public function complete() {
         $data = Input::json();
-	$testElement = TestElement::find($data->get('test-id'));
+	$id = $data->get('test_id');
+	$testElement = TestElement::find($id);
 	if(!$testElement) {
 	    return array('status'=> 'error', 'message' => 'Invalid test id'); 
 	} else if(!$testElement->started) { // Test non risulta iniziato
 	    return array('status'=> 'error', 'message' => 'This test was never marked as started'); 
-	} else if (Result::find($data->get('test-id')) &&  $testElement->completed) {
+	} else if (Result::find($id) &&  $testElement->completed) {
 	    return array('status'=> 'error', 'message' => 'Results already exist for this test');  
 	}
 	

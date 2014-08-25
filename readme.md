@@ -110,7 +110,7 @@ POST /completed-test
 ``` 
 ``` json
 { 
-    "test-id" : "10",
+    "test_id" : "10",
     "imei" : 356440041081405,
     "brightness":80.0,
     "volume":60,
