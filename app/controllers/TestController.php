@@ -93,7 +93,7 @@ class TestController extends BaseController {
 	}
         $test->started = date("Y-m-d H:i:s");
         $test->save();
-        return $test;
+	return array('status'=> 'success', 'message' => 'Test marked a started', 'data' => $test->toArray());
     }
     
     /**
@@ -132,7 +132,7 @@ class TestController extends BaseController {
 	$testElement->completed = date("Y-m-d H:i:s");
 	$testElement->save();
 	
-	return array('status'=> 'success', 'message' => $result->toArray()); 
+	return array('status'=> 'success', 'message' => 'Result saved', 'data' => $result->toArray()); 
     }
     
     /**
