@@ -4,6 +4,12 @@ MVideo
 This is the web app, written in PHP, that will serve as the *controller* of the MVideo battery-consumption-testing project.
 It is based on Laravel, which uses Composer: to install just run a `composer update` and everything should be fine.
 
+#### NOTES: 
+- The private.key used to ssh the OpenWRT device is excluded from the Git repository for obvious reasons. It has to be placed in the docs/ folder.
+- There is a simple `deloy.sh` bash script to help you deploying the app, please have a look at the code before using it.
+- There is a flag in the `app/config/mvideo.php` file called `'pretend'`: when set to `TRUE` it will not perform any action on the OpenWRT device.
+
+
 
 ###Screenshots
 ![Screenshot1](/docs/screenshots/screenshot-1.png?raw=true)
@@ -97,10 +103,12 @@ GET /power/off
 ```
 Turns the USB charging power off
 
-#### Sumitting results
+#### <i class="icon-cloud"></i> Sumitting results
+To submit the results to the web app, use the following structure
 ``` 
 POST /completed-test
-Body: 
+``` 
+``` json
 { 
     "test-id" : "10",
     "imei" : 356440041081405,
