@@ -17,17 +17,18 @@ if [ -n "$1" ]; then
     BRANCH=$1;
 fi
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+DIR="/var/www/mvideo"
 ARTISAN="artisan";
 
 echo "MVideo Deploy - $VERSION"
 
 echo -e "GIT PULL ($BRANCH)"
-cd $DIR && git pull origin $BRANCH && git submodule update --recursive
+git pull origin $BRANCH && git submodule update --recursive
 
+rsync -avz ~/MVideo/* /var/www/mvideo
 
 echo "DUMP-AUTOLOAD"
-composer dump-autoload
+cd $DIR && composer dump-autoload
 php $DIR/$ARTISAN dump-autoload
 
 echo "MIGRATION"
