@@ -98,8 +98,8 @@ class Test extends Eloquent {
         
         
         foreach ($brightness as $bright) {
-            foreach ($signal as $sig) {
-                foreach ($volume as $vol) {
+	    foreach ($volume as $vol) {
+		foreach ($signal as $sig) {
                     $test = new TestElement();
                     $test->media = $this->media;
                     $test->test_id = $this->id;
@@ -108,19 +108,18 @@ class Test extends Eloquent {
                     $test->volume = $vol;
 		    $test->max_length = $this->max_length ? $this->max_length : NULL;
                     $test->save();
-                    
-                    if($this->network == '3g') {
+                }     
+		if($this->network == '3g') {
                         $test = new TestElement();
                         $test->media = $this->media;
                         $test->test_id = $this->id;
                         $test->brightness = $bright;
-                        $test->signal_strenght = $sig;
+                        $test->signal_strenght = 100;
                         $test->volume = $vol;
 			$test->max_length = $this->max_length ? $this->max_length : NULL;
                         $test->network = '3g';
                         $test->save();
-                    }  
-                }     
+                    } 
            }
         }
         $this->exploded = 1;

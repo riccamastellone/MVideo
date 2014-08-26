@@ -165,11 +165,11 @@ function calculateTests() {
     }
     
     if(buttonStatus('3g') === 'enabled') {
-        threeg = 2;
-    } else {
         threeg = 1;
+    } else {
+        threeg = 0;
     }
-    var count = audio*wifi*brightness*threeg;
+    var count = audio*wifi*brightness+threeg*audio*brightness;
     return count;
     
 }
