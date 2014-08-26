@@ -74,7 +74,7 @@ class Test extends Eloquent {
 	// modello del controller
         if($this->signal_strenght_steps) {
             $i = 100;
-            while($i >= 0) {
+            while($i > 0) { // Escludiamo lo zero che non ha senso
                 $signal[] = $i;
                 $i = $i - $this->signal_strenght_steps;
             }

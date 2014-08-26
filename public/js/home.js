@@ -151,7 +151,8 @@ function calculateTests() {
     }
     
     if(buttonStatus('wifi') === 'enabled') {
-        wifi = Math.ceil(100/$('#wifi-step').val())+1;
+	 // Non ho il +1 dato che non includo lo zero che non ha senso
+        wifi = Math.ceil(100/$('#wifi-step').val());
     } else {
         wifi = 1;
     }

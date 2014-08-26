@@ -50,7 +50,8 @@ class Controller {
 		return;
 	    }
 	    
-	    if($level > 100 || $level < 1) 
+	    // Il valore 0 non ha senso, come quelli > 100
+	    if($level > 100 || $level < 0) 
 		$level = 100;
 		    
 	    $dbm = round(log($level, 10)*10);
