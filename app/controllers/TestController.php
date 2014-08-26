@@ -49,7 +49,6 @@ class TestController extends BaseController {
 		$test = $test->first();
 		$test->max_length = self::convertSeconds($test->max_length);
 	    }
-	    MVideo\Controller::setWifi($test->signal_strenght);
             return array('status'=> 'success', 'message' => 'New test retrieved', 'data' => $test->toArray());
         } else {
 	    $test = $this->currentTest();
@@ -93,6 +92,8 @@ class TestController extends BaseController {
 	}
         $test->started = date("Y-m-d H:i:s");
         $test->save();
+	// Settiamo il segnale wifi a quello corrispondente del test.
+	MVideo\Controller::setWifi($test->signal_strenght);
 	return array('status'=> 'success', 'message' => 'Test marked a started', 'data' => $test->toArray());
     }
     
