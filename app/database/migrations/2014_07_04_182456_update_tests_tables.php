@@ -35,7 +35,7 @@ class UpdateTestsTables extends Migration {
             });
 	    Schema::table('tests_list', function($table)
             {
-                    $table->time('max_length')->nullable();
+                    $table->dropColumn('max_length');
             });
 	    
 	}

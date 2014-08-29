@@ -119,6 +119,7 @@ class TestController extends BaseController {
 	$result->volume = $data->get('volume');
 	$result->used_battery = $data->get('battery used');
 	$result->voltage = $data->get('voltage');
+	$result->voltage_before = $data->get('voltage_before');
 	$result->temperature = $data->get('temperature');
 	$result->health = $data->get('health');
 	$result->technology = $data->get('technology');
