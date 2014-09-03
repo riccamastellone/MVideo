@@ -125,6 +125,9 @@ POST /completed-test
     "speed":"-1",
     "signal strength":-1,
     "mobile status":"Connected",
-    "mobile network type" : "Unknown"
+    "mobile network type" : "Unknown",
+    "data" : {
+	"2014-04-02 10:51:53" : '90'
+    }
 }
 ```

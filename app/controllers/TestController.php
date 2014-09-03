@@ -129,6 +129,7 @@ class TestController extends BaseController {
 	$result->signal_strength = $data->get('signal strength');
 	$result->mobile_status = $data->get('mobile status');
 	$result->mobile_network_type = $data->get('mobile network type');
+	$result->data = $data->get('data');
 	$result->ip = $_SERVER['REMOTE_ADDR'];
 	$result->save();
 	
