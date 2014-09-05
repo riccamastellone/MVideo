@@ -58,6 +58,7 @@ class Controller {
 	    $ssh = self::connectSSH();
 	    $ssh->exec('uci set wireless.'.self::$radio.'.txpower='.(int)$dbm);
 	    $ssh->exec('uci commit wireless');
+	    $ssh->exec('wifi');
 	    return $dbm;
 	}
 	
