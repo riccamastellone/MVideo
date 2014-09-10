@@ -15,6 +15,10 @@ Route::get('/', function()
 {
 	return View::make('home');
 });
+Route::get('/results-data', 'MainController@results');
+Route::get('/charts', function() {
+    return View::make('charts', array('results'=> MainController::results()));
+});
 
 Route::get('/test', 'TestController@get');
 
