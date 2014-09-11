@@ -53,11 +53,11 @@
 
         }, {
             name: 'Wifi ( 89% > Signal > 70% )',
-            data: [{{ implode($results['wifi-low'],',') }}]
+            data: [{{ implode($results['wifi-mid'],',') }}]
 
         },{
-            name: 'Wifi ( < 69% Signal )',
-            data: [{{ implode($results['wifi-mid'],',') }}]
+            name: 'Wifi ( Signal < 69% )',
+            data: [{{ implode($results['wifi-low'],',') }}]
 
         }, {
             name: 'Mobile Network',

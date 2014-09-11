@@ -64,52 +64,66 @@ class MainController extends BaseController {
         die('{"jsonrpc" : "2.0", "result" : "'.$filePath.'", "id" : "id"}');
     }
     
-    
-    public static function results() {
+    /**
+     * Ritorniamo i risultati estraendo i dati da DB per mostrarli in un
+     * grafico.
+     * La domanda a cui risponde è "Quanto dura l'X% di batteria?" con X percentuale
+     * 
+     * @param bool $divide
+     * @return array
+     */
+    public static function results($divide = FALSE) {
 	$results = Result::whereNotNull('data')->get();
-	$wifi_hi = array();
-	$wifi_mid = array();
-	$wifi_low = array();
-	$mobile = array();
+
 	foreach ($results as $r) {
-
-
-
+	    // Suddividiamo la luminosità in 4 principali macrocategorie per 
+	    // rendere i dati più significativi
 	    if($r->brightness >= 87.5) {
 		    $lvl = 100;
-		} else if($r->brightness < 87.5 && $r->brightness >= 62.5) {
+	    } else if($r->brightness < 87.5 && $r->brightness >= 62.5) {
 		    $lvl = 75;
-		} else if($r->brightness < 62.5 && $r->brightness >= 37.5) {
+	    } else if($r->brightness < 62.5 && $r->brightness >= 37.5) {
 		    $lvl = 50;
-		} else if($r->brightness < 37.5 && $r->brightness >= 12.5) {
+	    } else if($r->brightness < 37.5 && $r->brightness >= 12.5) {
 		    $lvl = 25;
-		} else {
+	    } else {
 		    $lvl = 0;
-		}
+	    }
 
+	    // Il device passa nella POST del risultato un array con i timestamp della scarica
+	    // ma non sono in ordine e ci sono duplicati
 	    $json = json_decode($r->data);
+	    
 	    // Ordiniamo l'array e convertiamo in secondi
-		$temp = array();
-		foreach ($json as $key => $value) {
+	    $temp = array();
+	    foreach ($json as $key => $value) {
+		// Se esiste già un timestamp per questo valore
+		if(isset($temp[intval($value)])) {
+		    // Se il tempo di quello preso in considerazione è maggiore di 
+		    // quello presente, lo sostituisco
+		    if(strtotime($key) > $temp[intval($value)]) {
+			$temp[intval($value)] = strtotime($key);
+		    }
+		} else {
 		    $temp[intval($value)] = strtotime($key);
 		}
-		krsort($temp);
+		
+	    }
+	    // Ordinamento verso il basso (eg 59-58-57)
+	    krsort($temp);
 
-
-		$values = array();
-		foreach ($temp as $key => $value) {
-		    if(isset($temp[$key-1])) {
-			if($r->wifi == 'Connected') {
-			    if($r->signal_strength >= 90) {
-				$wifi_hi[$lvl][] = ($temp[$key-1]-$temp[$key])/60;
-			    } else if($r->signal_strength >= 70) {
-				$wifi_mid[$lvl][] = ($temp[$key-1]-$temp[$key])/60;
-			    } else {
-				$wifi_low[$lvl][] = ($temp[$key-1]-$temp[$key])/60;
-			    }
-
+	    foreach ($temp as $key => $value) {
+		if(isset($temp[$key-1])) {
+		    if($r->wifi == 'Connected') {
+			if($r->signal_strength >= 90) {
+			    $wifi_hi[$lvl][] = ($temp[$key-1]-$temp[$key])/60;
+			} else if($r->signal_strength >= 70) {
+			    $wifi_mid[$lvl][] = ($temp[$key-1]-$temp[$key])/60;
 			} else {
-			    $mobile[$lvl][] = ($temp[$key-1]-$temp[$key])/60;
+			    $wifi_low[$lvl][] = ($temp[$key-1]-$temp[$key])/60;
+			}
+		    } else {
+			$mobile[$lvl][] = ($temp[$key-1]-$temp[$key])/60;
 		    }
 		}
 
@@ -135,7 +149,7 @@ class MainController extends BaseController {
 	ksort($wifi_low);
 	ksort($mobile);
 
-	 return array('mobile' => $mobile, 'wifi-hi' => $wifi_hi, 'wifi-low' => $wifi_low, 'wifi-mid' => $wifi_low);
+	 return array('mobile' => $mobile, 'wifi-hi' => $wifi_hi, 'wifi-low' => $wifi_low, 'wifi-mid' => $wifi_mid);
     }
 
 }
