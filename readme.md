@@ -4,6 +4,8 @@ MVideo
 This is the web app, written in PHP, that will serve as the *controller* of the MVideo battery-consumption-testing project.
 It is based on Laravel, which uses Composer: to install just run a `composer update` and everything should be fine.
 
+Requires PHP 5.4+
+
 #### NOTES: 
 - The private.key used to ssh the OpenWRT device is excluded from the Git repository for obvious reasons. It has to be placed in the docs/ folder.
 - There is a simple `deloy.sh` bash script to help you deploying the app, please have a look at the code before using it.

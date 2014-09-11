@@ -17,7 +17,12 @@ Route::get('/', function()
 });
 Route::get('/results-data', 'MainController@results');
 Route::get('/charts', function() {
-    return View::make('charts', array('results'=> MainController::results(),'results_divided'=> MainController::results(true)));
+
+    return View::make('charts', array(
+	'results'=> MainController::results(),
+	'results_2'=> MainController::results(false,2),
+	'results_divided'=> MainController::results(true),
+	));
 });
 
 Route::get('/test', 'TestController@get');

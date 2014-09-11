@@ -5,7 +5,7 @@
 <div class="jumbotron margin-top">
     <div class="current-status">
 	<div id="container" class="chart"></div>
-	
+	<div id="container_2" class="chart"></div>
 	<?php $count=0; foreach ($results_divided as $r) { ?>
 	<div id="container-{{$count}}" class="chart"></div>
 	<?php $count++;} ?>
@@ -66,6 +66,58 @@
         }, {
             name: 'Mobile Network',
             data: [{{ implode($results['mobile'],',') }}]
+
+        }]
+    });
+});</script>
+<script>
+    $(function () {
+    $('#container_2').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'MVideo Results (all devices)'
+        },
+        subtitle: {
+            text: 'How long does 2% last?'
+        },
+        xAxis: {
+            categories: [
+                '0%',
+                '25%',
+                '50%',
+                '75%',
+                '100%'
+            ]
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Minutes'
+            }
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        series: [{
+            name: 'Wifi ( Signal > 90% )',
+            data: [{{ implode($results_2['wifi-hi'],',') }}]
+
+        }, {
+            name: 'Wifi ( 89% > Signal > 70% )',
+            data: [{{ implode($results_2['wifi-mid'],',') }}]
+
+        },{
+            name: 'Wifi ( Signal < 69% )',
+            data: [{{ implode($results_2['wifi-low'],',') }}]
+
+        }, {
+            name: 'Mobile Network',
+            data: [{{ implode($results_2['mobile'],',') }}]
 
         }]
     });

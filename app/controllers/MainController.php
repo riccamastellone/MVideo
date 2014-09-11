@@ -72,16 +72,16 @@ class MainController extends BaseController {
      * @param bool $divide
      * @return array
      */
-    public static function results($divide = FALSE) {
+    public static function results($divide = FALSE, $perc = 1) {
 	if($divide) {
 	    $imeis = Result::groupBy('imei')->get();
 	    foreach ($imeis as $imei) {
 		$data = Result::where('imei',$imei->imei)->whereNotNull('data')->get();
-		$results[$imei->imei] = self::handleResults($data);
+		$results[$imei->imei] = self::handleResults($data,$perc);
 	    }
 	} else {
 	    $data = Result::whereNotNull('data')->get();
-	    $results = self::handleResults($data);
+	    $results = self::handleResults($data,$perc);
 	}
 	return $results;
 	
@@ -137,30 +137,56 @@ class MainController extends BaseController {
 	return $lvl;
     }
     
-    static public function handleResults($results) {
+    static public function handleResults($results, $perc = 1) {
 	foreach ($results as $r) {
 	    
 	    $lvl = self::brightnessLevel($r->brightness);
 	    $temp = self::cleanData($r->data);
 	    
-	    foreach ($temp as $key => $value) {
-		if(isset($temp[$key-1])) {
-		    if($r->wifi == 'Connected') {
-			if($r->signal_strength >= 90) {
-			    $wifi_hi[$lvl][] = ($temp[$key-1]-$temp[$key])/60;
-			} else if($r->signal_strength >= 70) {
-			    $wifi_mid[$lvl][] = ($temp[$key-1]-$temp[$key])/60;
+	    if($perc == 1) { //1%
+		foreach ($temp as $key => $value) {
+		    if(isset($temp[$key-1])) {
+			if($r->wifi == 'Connected') {
+			    if($r->signal_strength >= 90) {
+				$wifi_hi[$lvl][] = ($temp[$key-1]-$temp[$key])/60;
+			    } else if($r->signal_strength >= 70) {
+				$wifi_mid[$lvl][] = ($temp[$key-1]-$temp[$key])/60;
+			    } else {
+				$wifi_low[$lvl][] = ($temp[$key-1]-$temp[$key])/60;
+			    }
 			} else {
-			    $wifi_low[$lvl][] = ($temp[$key-1]-$temp[$key])/60;
+			    $mobile[$lvl][] = ($temp[$key-1]-$temp[$key])/60;
 			}
-		    } else {
-			$mobile[$lvl][] = ($temp[$key-1]-$temp[$key])/60;
 		    }
+
 		}
+	    } else { //2%
+		
+		for($i = array_keys($temp)[0]; $i>0 ; $i=$i-2) {
+		    
+		    if(!isset($temp[$i])) {
+			break;
+		    }
 
+		    if(isset($temp[$i-2])) {
+			if($r->wifi == 'Connected') {
+			    if($r->signal_strength >= 90) {
+				$wifi_hi[$lvl][] = ($temp[$i-2]-$temp[$i])/60;
+			    } else if($r->signal_strength >= 70) {
+				$wifi_mid[$lvl][] = ($temp[$i-2]-$temp[$i])/60;
+			    } else {
+				$wifi_low[$lvl][] = ($temp[$i-2]-$temp[$i])/60;
+			    }
+			} else {
+			    $mobile[$lvl][] = ($temp[$i-2]-$temp[$i])/60;
+			}
+		    }
+
+
+		}
 	    }
-
 	}
+	
 	foreach ($wifi_hi as $key => $value) {
 	    $wifi_hi[$key] = round(array_sum($value) / count($value),2);
 	}
